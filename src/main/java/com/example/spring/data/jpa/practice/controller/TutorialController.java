@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/")
 public class TutorialController {
 
+  // Todo Add Logger
   private TutorialService tutorialService;
 
   @Autowired
@@ -30,11 +31,11 @@ public class TutorialController {
     try {
       List<Tutorial> tutorials = new ArrayList<Tutorial>();
 
-      //Todo Refactor To Service Layer
       if (title == null) {
-        // tutorialRepository.findAll().forEach(tutorials::add);
+        tutorials = tutorialService.getAllTutorials();
+
       } else {
-        // tutorialRepository.findByTitleContaining(title).forEach(tutorials::add);
+        tutorials = tutorialService.getAllTutorialsByTitle(title);
       }
 
       if (tutorials.isEmpty()) {
