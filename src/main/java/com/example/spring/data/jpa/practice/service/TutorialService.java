@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public class TutorialService {
 
@@ -37,5 +38,18 @@ public class TutorialService {
     } catch (Exception e) {
       return false;
     }
+  }
+
+  public boolean deleteTutorial(Long id) {
+    try {
+      tutorialRepository.deleteById(id);
+      return true;
+    } catch (Exception e) {
+      return false;
+    }
+  }
+
+  public List<Tutorial> getTutorialsByPublished(boolean published) {
+    return tutorialRepository.findByPublished(true);
   }
 }
