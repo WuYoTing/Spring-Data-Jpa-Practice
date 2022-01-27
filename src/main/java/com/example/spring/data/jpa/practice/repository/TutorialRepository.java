@@ -1,6 +1,6 @@
 package com.example.spring.data.jpa.practice.repository;
 
-import com.example.spring.data.jpa.practice.model.Tutorial;
+import com.example.spring.data.jpa.practice.model.dao.Tutorial;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 

@@ -1,4 +1,4 @@
-package com.example.spring.data.jpa.practice.model;
+package com.example.spring.data.jpa.practice.model.dao;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
