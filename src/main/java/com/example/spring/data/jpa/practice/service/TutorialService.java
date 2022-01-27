@@ -31,9 +31,8 @@ public class TutorialService {
   }
 
   public boolean createTutorial(String title, String description, boolean published) {
-
     try {
-      Tutorial _tutorial = tutorialRepository.save(new Tutorial(title, description, published));
+      tutorialRepository.save(new Tutorial(title, description, published));
       return true;
     } catch (Exception e) {
       return false;
@@ -50,6 +49,6 @@ public class TutorialService {
   }
 
   public List<Tutorial> getTutorialsByPublished(boolean published) {
-    return tutorialRepository.findByPublished(true);
+    return tutorialRepository.findByPublished(published);
   }
 }

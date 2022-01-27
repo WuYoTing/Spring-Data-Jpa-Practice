@@ -9,21 +9,13 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Log4j2
 @RestController
 @RequestMapping("/")
 public class TutorialController {
 
-  // Todo Add Logger
   private TutorialService tutorialService;
 
   @Autowired
@@ -35,10 +27,9 @@ public class TutorialController {
   @GetMapping("/tutorials")
   public ResponseEntity<List<Tutorial>> getAllTutorials(
       @RequestParam(required = false) String title) {
-    log.info("getAllTutorials");
+    log.info("GET /tutorials");
+    List<Tutorial> tutorials = new ArrayList<>();
     try {
-      List<Tutorial> tutorials = new ArrayList<Tutorial>();
-
       if (title == null) {
         tutorials = tutorialService.getAllTutorials();
 
@@ -52,12 +43,13 @@ public class TutorialController {
 
       return new ResponseEntity<>(tutorials, HttpStatus.OK);
     } catch (Exception e) {
-      return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+      return new ResponseEntity<>(tutorials, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 
   @GetMapping("/tutorials/{id}")
   public ResponseEntity<Tutorial> getTutorialById(@PathVariable("id") long id) {
+    log.info("GET /tutorials/{}", id);
     Optional<Tutorial> tutorialData = tutorialService.getAllTutorialsById(id);
 
     if (tutorialData.isPresent()) {
@@ -67,8 +59,10 @@ public class TutorialController {
     }
   }
 
-  @PostMapping("/tutorials")
+  // TODO do not use tutorial(dao) use POJO or DTO
+  @RequestMapping(path = "/tutorials", method = RequestMethod.POST)
   public ResponseEntity<Tutorial> createTutorial(@RequestBody Tutorial tutorial) {
+    log.info("POST /tutorials");
     if (tutorialService.createTutorial(tutorial.getTitle(), tutorial.getDescription(), false)) {
       return new ResponseEntity(true, HttpStatus.CREATED);
     } else {
@@ -78,6 +72,7 @@ public class TutorialController {
 
   @DeleteMapping("/tutorials/{id}")
   public ResponseEntity<HttpStatus> deleteTutorials(@PathVariable("id") Long id) {
+    log.info("DELETE /tutorials/{}",id);
     if (tutorialService.deleteTutorial(id)) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     } else {
@@ -87,6 +82,7 @@ public class TutorialController {
 
   @GetMapping("/tutorials/published")
   public ResponseEntity<List<Tutorial>> getTutorialsByPublished() {
+    log.info("GET /tutorials/published");
     List<Tutorial> tutorials = tutorialService.getTutorialsByPublished(true);
     if (tutorials.isEmpty()) {
       return new ResponseEntity<>(HttpStatus.NO_CONTENT);
