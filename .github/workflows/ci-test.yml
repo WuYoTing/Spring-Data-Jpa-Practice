@@ -14,8 +14,8 @@ jobs:
       fail-fast: false
       matrix:
         os: [ ubuntu-latest ]
-        distribution: [ 'adopt' ]
-        version: [ '11' ]
+        distribution: [ 'adopt', 'zulu' ]
+        version: [ '8', '11' ]
     steps:
       - name: Checkout
         uses: actions/checkout@v2.4.0

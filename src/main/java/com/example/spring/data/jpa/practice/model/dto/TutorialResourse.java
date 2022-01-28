@@ -11,13 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TutorialResourse {
 
-  private String title;
-  private String description;
-  private boolean published;
+	private String title;
+	private String description;
+	private boolean published;
 
-  public TutorialResourse(Tutorial e) {
-    this.title = e.getTitle();
-    this.description = e.getDescription();
-    this.published = e.isPublished();
-  }
+	public TutorialResourse(Tutorial e) {
+		this.title = e.getTitle();
+		this.description = e.getDescription();
+		this.published = e.isPublished();
+	}
 }
